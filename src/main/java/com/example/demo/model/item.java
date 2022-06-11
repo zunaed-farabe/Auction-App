@@ -24,7 +24,7 @@ public class item {
     @NotNull(message = "Description can not be null")
     private String description;
     private String ownerId;
-   // private List<Pair<Integer, String>> biddingList= new ArrayList<Pair<Integer, String>>();
+    private List<Pair<Integer, String>> biddingList= new ArrayList<Pair<Integer, String>>();
     private LocalDateTime created;
     private LocalDateTime updated;
     private boolean AuctionFlag;
@@ -32,7 +32,7 @@ public class item {
 }
 @Data
 @AllArgsConstructor
-class Pair<F, S> {
+public class Pair<F, S> {
     public Integer first;
     public String second;
 

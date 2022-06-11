@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.ItemCollectionException;
+import com.example.demo.model.Pair;
 import com.example.demo.model.item;
 import com.example.demo.repository.itemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,23 @@ public class ItemServiceImpl implements ItemService{
             throw new ItemCollectionException(ItemCollectionException.NotFoundException(id));
         }else {
             itemRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public void updateBiddingList(String id, item Item, Integer price) throws ItemCollectionException {
+        Optional<item> itemOptional = itemRepository.findById(id);
+
+        if(itemOptional.isPresent()){
+
+
+            item itemToUpdate = itemOptional.get();
+
+            itemToUpdate.getBiddingList().add(new Pair<>(price, id));
+
+            itemRepository.save(itemToUpdate);
+        }else{
+            throw new ItemCollectionException(ItemCollectionException.NotFoundException(id));
         }
     }
 

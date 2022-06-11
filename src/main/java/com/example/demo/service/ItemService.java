@@ -14,4 +14,5 @@ public interface ItemService {
     public item getSingleItem(String id) throws ItemCollectionException;
     public void updateById(String id, item Item) throws ItemCollectionException;
     public void deleteById(String id) throws ItemCollectionException;
+    public void updateBiddingList(String id, item Item, Integer price) throws ItemCollectionException;
 }

@@ -104,4 +104,25 @@ public class itemController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @PutMapping("/items/{id}/price/{price}")
+    public ResponseEntity<?> updateBiddingList(@PathVariable("id") String id, @PathVariable("price") Integer price, @RequestBody item Item){
+
+
+        try {
+            Optional<item> itemOptional = itemRepository.findById(Item.getId());
+            if(itemOptional.isPresent()){
+                item Itemtosave = itemOptional.get();
+                itemService.updateBiddingList(id,Itemtosave,price);
+                return new ResponseEntity<>("Item bid added", HttpStatus.OK);
+            }else {
+                throw new ItemCollectionException(ItemCollectionException.NotFoundException(Item.getId()));
+            }
+        }catch (ConstraintViolationException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        }catch (ItemCollectionException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
